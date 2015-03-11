@@ -564,6 +564,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 @interface SWRevealViewController()<UIGestureRecognizerDelegate>
 {
     SWRevealView *_contentView;
+    UIScreenEdgePanGestureRecognizer *_edgePanGestureRecognizer;
     UIPanGestureRecognizer *_panGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
@@ -884,6 +885,17 @@ const int FrontViewPositionNone = 0xff;
     [_contentView reloadShadow];
 }
 
+- (UIScreenEdgePanGestureRecognizer *)edgePanGestureRecognizer{
+    if ( _edgePanGestureRecognizer == nil )
+    {
+        _edgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+        _edgePanGestureRecognizer.delegate = self;
+        [_contentView.frontView addGestureRecognizer:_edgePanGestureRecognizer];
+    }
+    return _edgePanGestureRecognizer;
+    
+}
+
 
 - (UIPanGestureRecognizer*)panGestureRecognizer
 {
@@ -1087,6 +1099,9 @@ const int FrontViewPositionNone = 0xff;
     // only allow gesture if no previous request is in process
     if ( _animationQueue.count == 0 )
     {
+        if ( recognizer == _edgePanGestureRecognizer){
+            return YES;
+        }
         if ( recognizer == _panGestureRecognizer )
             return [self _panGestureShouldBegin];
         

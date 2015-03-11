@@ -90,6 +90,9 @@
     return nil;
 }
 
+- (BOOL)revealControllerPanGestureShouldBegin:(SWRevealViewController *)revealController{
+    return revealController.frontViewPosition != FrontViewPositionLeft;
+}
 
 #define LogDelegates 0
 
