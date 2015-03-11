@@ -221,6 +221,14 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 - (void)revealToggleAnimated:(BOOL)animated;
 - (void)rightRevealToggleAnimated:(BOOL)animated; // <-- simetric implementation of the above for the rightViewController
 
+// The following method will provide a screenEdgePanGestureRecognizer suitable to be added to any view
+// in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
+// of a front controller, but it can be added to your frontViewController view or to the reveal controller view to provide full screen panning.
+// By default, the panGestureRecognizer is added to the view containing the front controller view. To keep this default behavior
+// you still need to call this method, just don't add it to any of your views. The default setup allows you to dissable
+// user interactions on your controller views without affecting the recognizer.
+- (UIScreenEdgePanGestureRecognizer *)edgePanGestureRecognizer;
+
 // The following method will provide a panGestureRecognizer suitable to be added to any view
 // in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
 // of a front controller, but it can be added to your frontViewController view or to the reveal controller view to provide full screen panning.

@@ -47,7 +47,7 @@
     
     SWRevealViewController *revealController = [self revealViewController];
     
-    
+    [revealController edgePanGestureRecognizer].edges =         UIRectEdgeLeft;
     [revealController panGestureRecognizer];
     [revealController tapGestureRecognizer];
     
