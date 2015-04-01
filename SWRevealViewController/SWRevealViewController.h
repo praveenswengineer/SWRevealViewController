@@ -144,18 +144,18 @@
 typedef NS_ENUM( NSInteger, FrontViewPosition)
 {
     // Front controller is removed from view. Animated transitioning from this state will cause the same
-    // effect than animating from FrontViewPositionLeftSideMost. Use this instead of FrontViewPositionLeftSideMost when
+    // effect than animating from FrontViewPositionLeftMost. Use this instead of FrontViewPositionLeftMost when
     // you want to remove the front view controller view from the view hierarchy.
-    FrontViewPositionLeftSideMostRemoved,
+    FrontViewPositionLeftMostRemoved,
     
     // Left most position, front view is presented left-offseted by rightViewRevealWidth+rigthViewRevealOverdraw
-    FrontViewPositionLeftSideMost,
+    FrontViewPositionLeftMost,
     
     // Left position, front view is presented left-offseted by rightViewRevealWidth
-    FrontViewPositionLeftSide,
+    FrontViewPositionLeft,
 
     // Center position, rear view is hidden behind front controller
-	FrontViewPositionLeft,
+	FrontViewPositionCenter,
     
     // Right possition, front view is presented right-offseted by rearViewRevealWidth
 	FrontViewPositionRight,
@@ -310,6 +310,10 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Set this to YES if you are presenting this controller as a non full-screen child of a custom container and you are not
 // clipping your front view to this controller bounds.
 @property (nonatomic) BOOL extendsPointInsideHit;
+
+
+// If YES (default is NO) the front view controller will fit to available width.
+@property (nonatomic) BOOL fitFrontController;
 
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
