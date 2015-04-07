@@ -182,7 +182,13 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     xLocation = [self _adjustedDragLocationForLocation:xLocation];
     [self _layoutRearViewsForLocation:xLocation];
     
-    CGRect frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
+
+    CGFloat width = CGRectGetWidth(bounds);
+    if (_c.fitFrontController) {
+        width = CGRectGetWidth(bounds) - ABS(xLocation);
+    }
+
+    CGRect frame = CGRectMake(xLocation, 0.0f, width, bounds.size.height);
     _frontView.frame = [self hierarchycalFrameAdjustment:frame];
 }
 

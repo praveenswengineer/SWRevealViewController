@@ -111,7 +111,7 @@
     
     if ( row == _presentedRow )
     {
-        [revealController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+        [revealController setFrontViewPosition:FrontViewPositionCenter animated:YES];
         return;
     }
     else if (row == 2)
