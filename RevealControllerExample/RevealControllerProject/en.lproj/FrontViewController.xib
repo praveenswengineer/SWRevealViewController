@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FrontViewController">
@@ -15,9 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="58">
-                    <rect key="frame" x="20" y="109" width="280" height="37"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58">
+                    <rect key="frame" x="20" y="109" width="280" height="30"/>
                     <state key="normal" title="Push a Navigation Controller!">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -25,22 +24,37 @@
                         <action selector="pushExample:" destination="-1" eventType="touchUpInside" id="59"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Note: You may always reveal the rear view by panning your finger across the NavigationBar." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" minimumFontSize="10" id="60">
-                    <rect key="frame" x="17" y="143" width="286" height="88"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Note: You may always reveal the rear view by panning your finger across the NavigationBar." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="60">
+                    <rect key="frame" x="17" y="163" width="286" height="62"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.31170164230000003" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="Ged-nC-e3e">
-                    <rect key="frame" x="18" y="239" width="284" height="34"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ged-nC-e3e">
+                    <rect key="frame" x="18" y="242" width="284" height="31"/>
                 </slider>
             </subviews>
             <color key="backgroundColor" red="0.82190921530000005" green="0.86119981749999996" blue="0.90776117700000003" alpha="1" colorSpace="calibratedRGB"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <constraints>
+                <constraint firstItem="58" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="HpC-xi-5I6"/>
+                <constraint firstItem="58" firstAttribute="top" secondItem="1" secondAttribute="top" constant="109" id="IDU-kO-NQm"/>
+                <constraint firstAttribute="trailing" secondItem="58" secondAttribute="trailing" constant="20" id="Rzj-Nj-Kzh"/>
+                <constraint firstAttribute="trailing" secondItem="Ged-nC-e3e" secondAttribute="trailing" constant="20" id="WvB-a0-v9p"/>
+                <constraint firstAttribute="trailing" secondItem="60" secondAttribute="trailing" constant="17" id="YmV-cC-B2N"/>
+                <constraint firstItem="Ged-nC-e3e" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Zdv-o4-khh"/>
+                <constraint firstItem="60" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="17" id="j4E-yA-Q4b"/>
+                <constraint firstItem="Ged-nC-e3e" firstAttribute="top" secondItem="60" secondAttribute="bottom" constant="17" id="mVn-U2-8tx"/>
+                <constraint firstItem="60" firstAttribute="top" secondItem="58" secondAttribute="bottom" constant="24" id="pNL-fL-Ne8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="247" y="360"/>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
