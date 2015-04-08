@@ -552,7 +552,22 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
+typedef NS_OPTIONS(NSUInteger, SWRevealViewControllerPanGestureRecognizerDirection){
+    SWRevealViewControllerPanGestureRecognizerDirectionRight = 1 << 0,
+    SWRevealViewControllerPanGestureRecognizerDirectionLeft  = 1 << 1,
+};
+
+NS_INLINE BOOL SWRevealViewControllerPanGestureRecognizerIsDirectionRight(SWRevealViewControllerPanGestureRecognizerDirection direction){
+    return ( (direction & SWRevealViewControllerPanGestureRecognizerDirectionRight) == direction );
+}
+
+NS_INLINE BOOL SWRevealViewControllerPanGestureRecognizerIsDirectionLeft(SWRevealViewControllerPanGestureRecognizerDirection direction){
+    return ( (direction & SWRevealViewControllerPanGestureRecognizerDirectionLeft) == direction );
+}
+
+
 @interface SWRevealViewControllerPanGestureRecognizer : UIPanGestureRecognizer
+@property (nonatomic, assign) SWRevealViewControllerPanGestureRecognizerDirection direction;
 @end
 
 @implementation SWRevealViewControllerPanGestureRecognizer
@@ -583,8 +598,18 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     UITouch *touch = [touches anyObject];
     CGPoint nowPoint = [touch locationInView:self.view];
     
-    if (ABS(nowPoint.x - _beginPoint.x) > kDirectionPanThreshold) _dragging = YES;
-    else if (ABS(nowPoint.y - _beginPoint.y) > kDirectionPanThreshold) self.state = UIGestureRecognizerStateFailed;
+    BOOL allowPanRight = SWRevealViewControllerPanGestureRecognizerIsDirectionRight(self.direction);
+    BOOL allowPanLeft = SWRevealViewControllerPanGestureRecognizerIsDirectionLeft(self.direction);
+    
+    BOOL isPanningToRight = (ABS(nowPoint.x - _beginPoint.x) > kDirectionPanThreshold);
+    BOOL isPanningToLeft = (_beginPoint.x - nowPoint.x > kDirectionPanThreshold);
+    BOOL isPanningVertical = (ABS(nowPoint.y - _beginPoint.y) > kDirectionPanThreshold);
+    
+    if ( (allowPanRight && isPanningToRight) || (allowPanLeft && isPanningToLeft) ) {
+        _dragging = YES;
+    } else if ( isPanningVertical || (!allowPanRight && isPanningToRight) || (!allowPanLeft && isPanningToLeft) ){
+        self.state = UIGestureRecognizerStateFailed;
+    }
 }
 
 @end
@@ -596,7 +621,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 {
     SWRevealView *_contentView;
     UIScreenEdgePanGestureRecognizer *_edgePanGestureRecognizer;
-    UIPanGestureRecognizer *_panGestureRecognizer;
+    SWRevealViewControllerPanGestureRecognizer *_panGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
@@ -934,6 +959,7 @@ const int FrontViewPositionNone = 0xff;
     if ( _panGestureRecognizer == nil )
     {
         _panGestureRecognizer = [[SWRevealViewControllerPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+        _panGestureRecognizer.direction = SWRevealViewControllerPanGestureRecognizerDirectionLeft|SWRevealViewControllerPanGestureRecognizerDirectionRight;
         _panGestureRecognizer.delegate = self;
         [_contentView.frontView addGestureRecognizer:_panGestureRecognizer];
     }
@@ -1561,8 +1587,16 @@ const int FrontViewPositionNone = 0xff;
         deploymentCompletion();
         if ( positionIsChanging )
         {
-            if ( [_delegate respondsToSelector:@selector(revealController:didMoveToPosition:)] )
+            if ( [_delegate respondsToSelector:@selector(revealController:didMoveToPosition:)] ){
+                if (newPosition < FrontViewPositionCenter) {
+                    _panGestureRecognizer.direction = SWRevealViewControllerPanGestureRecognizerDirectionRight;
+                } else if (newPosition > FrontViewPositionCenter) {
+                    _panGestureRecognizer.direction = SWRevealViewControllerPanGestureRecognizerDirectionLeft;
+                } else {
+                    _panGestureRecognizer.direction = SWRevealViewControllerPanGestureRecognizerDirectionLeft|SWRevealViewControllerPanGestureRecognizerDirectionRight;
+                }
                 [_delegate revealController:self didMoveToPosition:newPosition];
+            }
         }
     };
 
@@ -1958,5 +1992,3 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //}
 //
 //@end
-
-
