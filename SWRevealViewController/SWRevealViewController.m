@@ -1212,7 +1212,7 @@ const int FrontViewPositionNone = 0xff;
     UIView *recognizerView = _panGestureRecognizer.view;
     CGPoint translation = [_panGestureRecognizer translationInView:recognizerView];
 //        NSLog( @"translation:%@", NSStringFromCGPoint(translation) );
-//    if ( fabs(translation.y/translation.x) > 1 )
+//    if ( ABS(translation.y/translation.x) > 1 )
 //        return NO;
 
     // forbid gesture if the following delegate is implemented and returns NO
@@ -1420,7 +1420,7 @@ const int FrontViewPositionNone = 0xff;
     
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
     NSTimeInterval firstDuration = duration;
-    NSInteger initialPosDif = ABS( _frontViewPosition - preReplacementPosition );
+    FrontViewPosition initialPosDif = ABS( _frontViewPosition - preReplacementPosition );
     if ( initialPosDif == 1 ) firstDuration *= 0.8;
     else if ( initialPosDif == 0 ) firstDuration = 0;
     
