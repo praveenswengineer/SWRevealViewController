@@ -399,7 +399,8 @@ typedef enum
 @interface UIViewController(SWRevealViewController)
 
 - (SWRevealViewController*)revealViewController;
-
+- (void)revealViewControllerWillMoveToPosition:(FrontViewPosition)frontViewPosition;
+- (void)revealViewControllerDidMoveToPosition:(FrontViewPosition)frontViewPosition;
 @end
 
 
