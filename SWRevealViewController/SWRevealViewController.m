@@ -1573,8 +1573,13 @@ const int FrontViewPositionNone = 0xff;
     
     if ( positionIsChanging )
     {
-        if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] )
+        if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] ){
+            [self.frontViewController revealViewControllerWillMoveToPosition:newPosition];
+            [self.rightViewController revealViewControllerWillMoveToPosition:newPosition];
+            [self.rearViewController revealViewControllerWillMoveToPosition:newPosition];
+
             [_delegate revealController:self willMoveToPosition:newPosition];
+        }
     }
     
     _frontViewPosition = newPosition;
@@ -1595,6 +1600,9 @@ const int FrontViewPositionNone = 0xff;
                 } else {
                     _panGestureRecognizer.direction = SWRevealViewControllerPanGestureRecognizerDirectionLeft|SWRevealViewControllerPanGestureRecognizerDirectionRight;
                 }
+                [self.frontViewController revealViewControllerDidMoveToPosition:newPosition];
+                [self.rightViewController revealViewControllerDidMoveToPosition:newPosition];
+                [self.rearViewController revealViewControllerDidMoveToPosition:newPosition];
                 [_delegate revealController:self didMoveToPosition:newPosition];
             }
         }
@@ -1889,6 +1897,13 @@ const int FrontViewPositionNone = 0xff;
     while ( nil != (parent = [parent parentViewController]) && ![parent isKindOfClass:revealClass] ) {}
     return (id)parent;
 }
+
+- (void)revealViewControllerWillMoveToPosition:(FrontViewPosition)frontViewPosition{
+}
+
+- (void)revealViewControllerDidMoveToPosition:(FrontViewPosition)frontViewPosition{
+}
+
 
 @end
 
