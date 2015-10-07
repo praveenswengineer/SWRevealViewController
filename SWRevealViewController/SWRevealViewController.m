@@ -1006,8 +1006,10 @@ const int FrontViewPositionNone = 0xff;
 
 - (void)_notifyPanGestureBegan
 {
-    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureBegan:)] )
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureBegan:)] ){
         [_delegate revealControllerPanGestureBegan:self];
+        [self.frontViewController revealViewControllerDidBeginPanFromPosition:_frontViewPosition];
+    }
     
     CGFloat xLocation, dragProgress, overProgress;
     [self _getDragLocation:&xLocation progress:&dragProgress overdrawProgress:&overProgress];
@@ -1042,8 +1044,10 @@ const int FrontViewPositionNone = 0xff;
     else if ( [_delegate respondsToSelector:@selector(revealController:panGestureEndedToLocation:progress:)] )
         [_delegate revealController:self panGestureEndedToLocation:xLocation progress:dragProgress];
     
-    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:)] )
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:)] ){
         [_delegate revealControllerPanGestureEnded:self];
+        [self.frontViewController revealViewControllerDidEndPanFromPosition:_frontViewPosition];
+    }
 }
 
 
@@ -1863,6 +1867,11 @@ const int FrontViewPositionNone = 0xff;
 - (void)revealViewControllerDidMoveToPosition:(FrontViewPosition)frontViewPosition{
 }
 
+-(void)revealViewControllerDidBeginPanFromPosition:(FrontViewPosition)frontViewPosition{
+}
+
+-(void)revealViewControllerDidEndPanFromPosition:(FrontViewPosition)frontViewPosition{
+}
 
 @end
 
