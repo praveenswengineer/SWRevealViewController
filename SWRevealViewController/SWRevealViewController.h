@@ -405,6 +405,8 @@ typedef enum
 - (SWRevealViewController*)revealViewController;
 - (void)revealViewControllerWillMoveToPosition:(FrontViewPosition)frontViewPosition;
 - (void)revealViewControllerDidMoveToPosition:(FrontViewPosition)frontViewPosition;
+- (void)revealViewControllerDidBeginPanFromPosition:(FrontViewPosition)frontViewPosition;
+- (void)revealViewControllerDidEndPanFromPosition:(FrontViewPosition)frontViewPosition;
 @end
 
 
