@@ -760,9 +760,6 @@ const int FrontViewPositionNone = 0xff;
     // set our contentView to the controllers view
     self.view = _contentView;
     
-    // Apple also tells us to do this:
-    _contentView.backgroundColor = [UIColor blackColor];
-    
     // we set the current frontViewPosition to none before seting the
     // desired initial position, this will force proper controller reload
     FrontViewPosition initialPosition = _frontViewPosition;
